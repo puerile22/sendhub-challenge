@@ -1,0 +1,9 @@
+var app = angular.module('sendhub', ['ngResource', 'ngRoute']);
+
+app.config(['$routeProvider', function($routeProvider) {
+
+  $routeProvider
+  .otherwise({
+    redirectTo: "/"
+  })
+}]);
