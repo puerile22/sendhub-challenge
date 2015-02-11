@@ -22,6 +22,9 @@
   <p>Measure the volume of a local media stream using WebAudio.</p>
 
   <div id="meters">
+    <div id='range'>
+      <div>Threshold: <input type='range' ng-init='threshold=0.5' value=0.5 max=1.0 step=0.01 ng-model='threshold'><span id='threshold'>{{ threshold }}</span>
+    </div>
     <div id="instant">
       <div class="label">Instant: </div>
       <meter high="0.25" max="1" value="0"></meter>
@@ -38,7 +41,8 @@
       <div class="value"></div>
     </div>
   </div>
-
+  <p>{{ slow }}</p>
+  <p>{{ output.sum }}</p>
   <p>The 'instant' volume changes approximately every 50ms; the 'slow' volume approximates the average volume over about a second.</p>
   <p>The <code>audioContext</code>, <code>stream</code> and <code>soundMeter</code> variables are in global scope, so you can inspect them from the console.</p>
 
