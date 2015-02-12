@@ -44,9 +44,9 @@
   </div>
   <p>{{ slow }}</p>
   <p>{{ output.sum }}</p>
-  <div ng-if='outputArray[0].sum'>3 most energetic time periods
+  <div>3 most energetic time periods
     <ul>
-      <li ng-repeat = "output in outputArray">Start Time: {{ output.startTime }} End Time: {{ output.endTime }} Output: {{ output.sum }}</li>
+      <li ng-repeat = "output in outputArray" ng-if='output.sum'>Start Time: {{ output.startTime }} End Time: {{ output.endTime }} Output: {{ output.sum }}</li>
     </ul>
   </div>
 </div>
