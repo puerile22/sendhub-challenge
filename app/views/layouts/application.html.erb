@@ -25,6 +25,7 @@
     <div id='range'>
       <div>Threshold: <input type='range' ng-init='threshold=0.5' value=0.5 max=1.0 step=0.01 ng-model='threshold'><span id='threshold'>{{ threshold }}</span>
     </div>
+    <div>Send message to(US number only)<input id='number' type='tel' ng-model='number'></div>
     <div id="instant">
       <div class="label">Instant: </div>
       <meter high="0.25" max="1" value="0"></meter>
@@ -43,10 +44,6 @@
   </div>
   <p>{{ slow }}</p>
   <p>{{ output.sum }}</p>
-  <p>The 'instant' volume changes approximately every 50ms; the 'slow' volume approximates the average volume over about a second.</p>
-  <p>The <code>audioContext</code>, <code>stream</code> and <code>soundMeter</code> variables are in global scope, so you can inspect them from the console.</p>
-
-  <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/volume" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
 </div>
   <%= yield %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>

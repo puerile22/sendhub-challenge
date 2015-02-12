@@ -1,11 +1,8 @@
 app.controller('HomeController', ['$scope', '$interval', 'HomeService', function($scope, $interval, HomeService) {
-  $interval(function() {
+  $scope.loudTime = 0;
+  $scope.checkVolume = $interval(function() {
     if (typeof soundMeter !== 'undefined') {
-      $scope.slow = soundMeter.slow.toFixed(2);
-      if ($scope.slow > Number($scope.threshold) && $scope.output.sum > Number($scope.threshold) && $scope.output.sum > $scope.outputArray[0].sum && $scope.outputIdArray.indexOf($scope.output.id) === -1) {
-        $scope.outputIdArray.push($scope.output.id);
-        console.log('too loud!');
-      }
+      HomeService.checkVolume($scope);
     }
   }, 200);
   $scope.outputArray = HomeService.outputArray;
@@ -15,21 +12,12 @@ app.controller('HomeController', ['$scope', '$interval', 'HomeService', function
     'time': 0,
     'id': 0
   };
-  $interval(function() {
+  $scope.getOutput = $interval(function() {
     if (typeof soundMeter !== 'undefined') {
-      $scope.output.sum += soundMeter.instant.toFixed(2) * 0.05;
-      $scope.output.time += 50;
+      HomeService.getOutput($scope);
     }
   }, 50);
-  $interval(function() {
-    if ($scope.output.time > 2000 && $scope.slow < 0.001 * Number($scope.threshold)) {
-      if ($scope.output.sum > $scope.outputArray[0].sum) {
-        $scope.outputArray.shift();
-        $scope.outputArray.push($scope.output);
-        $scope.outputArray.sort(HomeService.sortBySum);
-        // console.log($scope.outputArray);
-      }
-      HomeService.resetOutput($scope);
-    }
+  $scope.checkOutputPeriod = $interval(function() {
+    HomeService.checkOutputPeriod($scope);
   }, 1500);
 }]);
