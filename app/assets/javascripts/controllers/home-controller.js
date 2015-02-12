@@ -9,7 +9,9 @@ app.controller('HomeController', ['$scope', '$interval', 'HomeService', function
   $scope.outputIdArray = [];
   $scope.output = {
     'sum': 0,
+    'startTime': HomeService.getCurrentTime(),
     'time': 0,
+    'endTime': 0,
     'id': 0
   };
   $scope.getOutput = $interval(function() {

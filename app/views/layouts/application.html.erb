@@ -44,6 +44,11 @@
   </div>
   <p>{{ slow }}</p>
   <p>{{ output.sum }}</p>
+  <div ng-if='outputArray[0].sum'>3 most energetic time periods
+    <ul>
+      <li ng-repeat = "output in outputArray">Start Time: {{ output.startTime }} End Time: {{ output.endTime }} Output: {{ output.sum }}</li>
+    </ul>
+  </div>
 </div>
   <%= yield %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>

@@ -10,10 +10,16 @@ app.service('HomeService', ['$http', function($http) {
   this.resetOutput = function(scope) {
     scope.output = {
       'sum': 0,
-      'time': 0,
+      'time': audioContext.currentTime.toFixed(2),
+      'startTime': this.getCurrentTime(),
+      'endTime': 0,
       'id': scope.output.id + 1
     };
   };
+  this.getCurrentTime = function() {
+    var currentTime = new Date();
+    return currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
+  }; 
 // Check if the volume crosses the minimum threshold for more than 1 sec by comparing the slow volume and threshold
 // Also check if the volume meets both criteria, if so, send out the message.
   this.checkVolume = function(scope) {
@@ -32,13 +38,13 @@ app.service('HomeService', ['$http', function($http) {
 // Calculate volume output
   this.getOutput = function(scope) {
     scope.output.sum += soundMeter.instant.toFixed(2) * 0.05;
-    scope.output.time += 50;
   };
 // Check if the output period is longer than 2 sec and has been quite for more than 1 sec, if so reset the output
   this.checkOutputPeriod = function(scope) {
-    if (scope.output.time > 2000 && scope.slow < 0.001 * Number(scope.threshold)) {
+    if (audioContext.currentTime - scope.output.time > 2 && scope.slow < 0.001 * Number(scope.threshold)) {
       if (scope.output.sum > scope.outputArray[0].sum) {
         scope.outputArray.shift();
+        scope.output.endTime = this.getCurrentTime();
         scope.outputArray.push(scope.output);
         scope.outputArray.sort(this.sortBySum);
       }
