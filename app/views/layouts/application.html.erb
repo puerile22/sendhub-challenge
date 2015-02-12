@@ -42,12 +42,12 @@
       <div class="value"></div>
     </div>
   </div>
-  <p>{{ slow }}</p>
-  <p>{{ output.sum }}</p>
+  <p>Volume/sec: {{ slow }}</p>
+  <p>Output: {{ output.sum }}</p>
   <div>3 most energetic time periods
-    <ul>
+    <ol>
       <li ng-repeat = "output in outputArray" ng-if='output.sum'>Start Time: {{ output.startTime }} End Time: {{ output.endTime }} Output: {{ output.sum }}</li>
-    </ul>
+    </ol>
   </div>
 </div>
   <%= yield %>
